@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <!--three meta lines added-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--
+        Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
+        For details, see http://go.microsoft.com/fwlink/?LinkID=617521
+    -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <title>Devices Services Dashboard</title>
+
+    <!-- TestApp references -->
+    <link href="css/index.css" rel="stylesheet" />
+    <link href="css/app/bootstrap.css" rel="stylesheet" />
+    <link href="css/app/app.css" rel="stylesheet" />
+</head>
+<body ng-app="myApp">
+    <!--<loading></loading>-->
+    <div id="wrapper">
+        <!-- Navigation -->
+        <div id="page-wrapper" class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>
+                        <a href="http://www.wipro.com" target="_blank">
+                            <img width="100" height="80" class="mscom-image mscom-left" id="D4F87B65-CB46-40F9-8458-56E05A099321" alt="Wipro" src="images/app/Wipro.png">
+                        </a>
+
+                    </h2>
+                </div>
+                <div class="col-lg-12">
+                    <h4>Devices Services Dashboard</h4>
+                    <!-- /.col-lg-12 -->
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="panel panel-primary" ng-controller="environmentsCtrl">
+                        <div class="panel-heading">
+                            <ul class="list-inline">
+                                <li>
+                                    <h4> Environment :</h4>
+                                </li>
+                                <li>
+                                    <select id="Environment" class="form-control" ng-model="selectedItem" ng-change="update(selectedItem)">
+                                        <option value="0"> -- Please Select -- </option>
+                                        <option data-ng-repeat="t in environments" value="{{t.ID}}" >{{t.Type}}</option>
+                                    </select>
+                                </li>
+                                
+                            </ul>
+                        </div>
+
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h4>Device Services Plugins</h4>
+                                    <div>
+                                        <ul class="list-unstyled">
+                                            <li ng-repeat="x in pluginDetails | filter: 'DBS' | orderBy:['ServiceName','Location']">
+                                                <p>
+                                                    <div class="pull-left">{{ x.ServiceName }}</div> <span ng-if="x.Location != null"> {{ '&nbsp;' + "( " + x.Location + " ) "}}</span>
+                                                    <div class="pull-right">
+                                                        <input type="button" value="info" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status == '1'" style="background-color:green; border-radius:16px" />
+                                                        <input type="button" value="info" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status != '1'" style="background-color:red; border-radius:16px" />
+
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                                <div class="col-lg-6">
+                                    <h4>SOM Supporting Services</h4>
+                                    <div>
+                                        <ul class="list-unstyled">
+                                            <li ng-repeat="x in pluginDetails | filter: 'SOM' | orderBy:['ServiceName','Location']">
+                                                <p>
+                                                    <div class="pull-left">{{ x.ServiceName }} </div><span ng-if="x.Location != null"> {{ '&nbsp;' + "( " + x.Location + " ) "}}</span>
+                                                    <div class="pull-right">
+                                                        <input type="button" value="info" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status == '1'" style="background-color:green; border-radius:16px" />
+                                                        <input type="button" value="info" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status != '1'" style="background-color:red; border-radius:16px" />
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- /.col-lg-6 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <div class="panel-footer">
+                            <p class="text-center">
+                                <a href="https://microsoft.sharepoint.com/teams/deviceservices"> Report a problem with Device Services Plugins </a>
+                            </p>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /#page-wrapper -->
+    <!--<p><h3>This is the test page created by POC team!</h3></p>-->
+    <!-- Cordova reference, this is added to your app when it's built. -->
+   
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <script src="scripts/index.js"></script>
+    <script src="scripts/app/angular.min.js" type="text/javascript"></script>
+    <script src="scripts/app/jquery.min.js"></script>
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.controller('environmentsCtrl', function ($scope, $http, $window) {
+           // $scope.loading = true;
+            $http.get("https://nodeapidemo.azurewebsites.net/api/Getenvironments")
+            .success(function (response) { $scope.environments = response;  });
+
+            //$scope.loading = true;
+            $http.get("https://nodeapidemo.azurewebsites.net/api/GetStatusForAllPlugins/0")
+            .success(function (Result) { $scope.pluginDetails = Result;  });
+
+            $scope.update = function (item) {
+               // $scope.loading = true;
+                $http.get("https://nodeapidemo.azurewebsites.net/api/GetStatusForAllPlugins/" + item)
+            .success(function (Result) { $scope.pluginDetails = Result;  });
+
+            }
+
+            $scope.showDetails = function (item, $window) {
+                $window.alert("hi");
+            }
+        });
+
+        function ddlSelect()
+        {
+            $('#Environment').val("0");
+        };
+        window.onload = ddlSelect;
+
+        //function progressbar() {
+        //    app.directive('loading', function () {
+        //        return {
+        //            restrict: 'E',
+        //            replace: true,
+        //            template: '<div class="loading-dialog"><img src="images/app/Loading2.gif" height="50px" width="50px"/></div>',
+        //            link: function (scope, element, attr) {
+        //                scope.$watch('loading', function (val) {
+        //                    if (val)
+        //                        $(element).show();
+        //                    else
+        //                        $(element).hide();
+        //                });
+        //            }
+        //        }
+        //    })
+        //};
+        //windo.onload = progressbar;
+    </script>
+</body>
+</html>
