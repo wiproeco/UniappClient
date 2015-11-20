@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <!--three meta lines added-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!--
+        Customize the content security policy in the meta tag below as needed. Add 'unsafe-inline' to default-src to enable inline JavaScript.
+        For details, see http://go.microsoft.com/fwlink/?LinkID=617521
+    -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <title>Devices Services Dashboard</title>
+
+    <!-- TestApp references -->
+    <link href="css/index.css" rel="stylesheet" />
+    <link href="css/app/bootstrap.css" rel="stylesheet" />
+    <link href="css/app/app.css" rel="stylesheet" />
+    <link href="css/app/font-awesome.min.css" rel="stylesheet" />
+</head>
+<body ng-app="myApp">
+    <div id="wrapper">
+        <!-- Navigation -->
+        <div id="page-wrapper" class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>
+                        <a href="http://www.microsoft.com" target="_blank">
+                            <img width="160" height="34" class="mscom-image mscom-left" id="D4F87B65-CB46-40F9-8458-56E05A099321" alt="Microsoft" src="images/app/mslogo.png">
+                        </a>
+                    </h2>
+                </div>
+                <div class="col-lg-12">
+                    <h4>Devices Services Dashboard</h4>
+                    <!-- /.col-lg-12 -->
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-12">                    
+                    <div class="panel panel-primary" ng-controller="customersCtrl">
+                        <div class="panel-heading">
+                            <ul class="list-inline">
+                                <li class="pull-left">
+                                    <p>Plugin Status Detail</p>
+                                </li>
+                                <li class="pull-right">
+                                <a class="btn btn-sm btn-warning" style="border-radius:24px !important" ng-click="goBack()">
+                                    Back</a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h4>Status1</h4>
+                                    
+                                </div>                               
+                                <!-- /.col-lg-12 (nested) -->
+                            </div>
+                            <!-- /.row (nested) -->
+                        </div>
+                        <div class="panel-footer">
+                            <p class="text-center">
+                                <a href="https://microsoft.sharepoint.com/teams/deviceservices"> Report a problem with Device Services Plugins </a>
+                            </p>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.panel -->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /#page-wrapper -->
+    <!--<p><h3>This is the test page created by POC team!</h3></p>-->
+    <!-- Cordova reference, this is added to your app when it's built. -->
+    <script src="cordova.js"></script>
+    <script src="scripts/platformOverrides.js"></script>
+
+    <script src="scripts/index.js"></script>
+    <script src="scripts/app/angular.min.js" type="text/javascript"></script>
+    <script>
+
+        var app = angular.module('myApp', []);       
+
+        app.controller('customersCtrl', function ($scope, $http, $window) {
+            $http.get("http://www.w3schools.com/angular/customers.php")
+            .success(function (response) { $scope.names = response.records; });
+            $scope.goBack = function () {
+                $window.alert("calling");
+                $window.history.back();
+            }
+        });
+
+      
+
+    </script>
+</body>
+</html>
