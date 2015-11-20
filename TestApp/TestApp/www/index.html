@@ -20,6 +20,7 @@
     <link href="css/app/app.css" rel="stylesheet" />
 </head>
 <body ng-app="myApp">
+    <!--<loading></loading>-->
     <div id="wrapper">
         <!-- Navigation -->
         <div id="page-wrapper" class="container">
@@ -52,8 +53,10 @@
                                         <option data-ng-repeat="t in environments" value="{{t.ID}}" >{{t.Type}}</option>
                                     </select>
                                 </li>
+                                
                             </ul>
                         </div>
+
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-lg-6">
@@ -64,8 +67,8 @@
                                                 <p>
                                                     <div class="pull-left">{{ x.ServiceName }}</div> <span ng-if="x.Location != null"> {{ '&nbsp;' + "( " + x.Location + " ) "}}</span>
                                                     <div class="pull-right">
-                                                        <input type="button" value="more" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status == '1'" style="background-color:green; border-radius:16px" />
-                                                        <input type="button" value="more" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status != '1'" style="background-color:red; border-radius:16px" />
+                                                        <input type="button" value="info" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status == '1'" style="background-color:green; border-radius:16px" />
+                                                        <input type="button" value="info" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status != '1'" style="background-color:red; border-radius:16px" />
 
                                                     </div>
                                                     <div class="clearfix"></div>
@@ -83,8 +86,8 @@
                                                 <p>
                                                     <div class="pull-left">{{ x.ServiceName }} </div><span ng-if="x.Location != null"> {{ '&nbsp;' + "( " + x.Location + " ) "}}</span>
                                                     <div class="pull-right">
-                                                        <input type="button" value="more" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status == '1'" style="background-color:green; border-radius:16px" />
-                                                        <input type="button" value="more" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status != '1'" style="background-color:red; border-radius:16px" />
+                                                        <input type="button" value="info" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status == '1'" style="background-color:green; border-radius:16px" />
+                                                        <input type="button" value="info" class="btn btn-xs btn-success" ng-click="showDetail({{x.ResultJSON}})" ng-if="x.Status != '1'" style="background-color:red; border-radius:16px" />
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </p>
@@ -120,37 +123,27 @@
     <script src="scripts/app/angular.min.js" type="text/javascript"></script>
     <script src="scripts/app/jquery.min.js"></script>
     <script>
-
-        $(document).on("pageinit", function () {
-            $('.popupParent').on({
-                popupafterclose: function () {
-                    setTimeout(function () { $('.popupChild').popup('open') }, 100);
-                }
-            });
-        });
-
         var app = angular.module('myApp', []);
 
         app.controller('environmentsCtrl', function ($scope, $http, $window) {
+           // $scope.loading = true;
             $http.get("https://nodeapidemo.azurewebsites.net/api/Getenvironments")
-            .success(function (response) { $scope.environments = response; });
+            .success(function (response) { $scope.environments = response;  });
+
+            //$scope.loading = true;
             $http.get("https://nodeapidemo.azurewebsites.net/api/GetStatusForAllPlugins/0")
-            .success(function (Result) { $scope.pluginDetails = Result; });          
+            .success(function (Result) { $scope.pluginDetails = Result;  });
 
             $scope.update = function (item) {
-                //$window.alert(item);
+               // $scope.loading = true;
                 $http.get("https://nodeapidemo.azurewebsites.net/api/GetStatusForAllPlugins/" + item)
-            .success(function (Result) { $scope.pluginDetails = Result; });
+            .success(function (Result) { $scope.pluginDetails = Result;  });
+
             }
 
             $scope.showDetails = function (item, $window) {
                 $window.alert("hi");
             }
-        });
-
-        app.controller('customersCtrl', function ($scope, $http) {
-            $http.get("http://www.w3schools.com/angular/customers.php")
-            .success(function (response) { $scope.names = response.records; });
         });
 
         function ddlSelect()
@@ -159,6 +152,24 @@
         };
         window.onload = ddlSelect;
 
+        //function progressbar() {
+        //    app.directive('loading', function () {
+        //        return {
+        //            restrict: 'E',
+        //            replace: true,
+        //            template: '<div class="loading-dialog"><img src="images/app/Loading2.gif" height="50px" width="50px"/></div>',
+        //            link: function (scope, element, attr) {
+        //                scope.$watch('loading', function (val) {
+        //                    if (val)
+        //                        $(element).show();
+        //                    else
+        //                        $(element).hide();
+        //                });
+        //            }
+        //        }
+        //    })
+        //};
+        //windo.onload = progressbar;
     </script>
 </body>
 </html>

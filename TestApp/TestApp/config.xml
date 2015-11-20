@@ -29,14 +29,10 @@
   </platform>
 
   <platform name="android">
-    <!--<icon src="res/icons/android/icon-36-ldpi.png" density="ldpi" />
+    <icon src="res/icons/android/icon-36-ldpi.png" density="ldpi" />
     <icon src="res/icons/android/icon-48-mdpi.png" density="mdpi" />
     <icon src="res/icons/android/icon-72-hdpi.png" density="hdpi" />
-    <icon src="res/icons/android/icon-96-xhdpi.png" density="xhdpi" />-->
-    <icon src="res/icons/android/wipro.png" density="ldpi" />
-    <icon src="res/icons/android/wipro.png" density="mdpi" />
-    <icon src="res/icons/android/wipro.png" density="hdpi" />
-    <icon src="res/icons/android/wipro.png" density="xhdpi" />
+    <icon src="res/icons/android/icon-96-xhdpi.png" density="xhdpi" />
   </platform>
 
   <platform name="ios">
@@ -79,7 +75,8 @@
     <icon src="res/icons/windows/StoreLogo.scale-100.png" width="50" height="50" />
     <icon src="res/icons/windows/StoreLogo.scale-240.png" width="120" height="120" />
     <icon src="res/icons/windows/Wide310x150Logo.scale-100.png" width="310" height="150" />
-    <icon src="res/icons/windows/Wide310x150Logo.scale-240.png" width="744" height="360" />   
+    <icon src="res/icons/windows/Wide310x150Logo.scale-240.png" width="744" height="360" />
+   
   </platform>
 
   <platform name="wp8">
@@ -88,7 +85,7 @@
   </platform>
 
   <platform name="android">
-    <!--<splash src="res/screens/android/screen-hdpi-landscape.png" density="land-hdpi"/>
+    <splash src="res/screens/android/screen-hdpi-landscape.png" density="land-hdpi"/>
     <splash src="res/screens/android/screen-ldpi-landscape.png" density="land-ldpi"/>
     <splash src="res/screens/android/screen-mdpi-landscape.png" density="land-mdpi"/>
     <splash src="res/screens/android/screen-xhdpi-landscape.png" density="land-xhdpi"/>
@@ -96,17 +93,7 @@
     <splash src="res/screens/android/screen-hdpi-portrait.png" density="port-hdpi"/>
     <splash src="res/screens/android/screen-ldpi-portrait.png" density="port-ldpi"/>
     <splash src="res/screens/android/screen-mdpi-portrait.png" density="port-mdpi"/>
-    <splash src="res/screens/android/screen-xhdpi-portrait.png" density="port-xhdpi"/>-->
-    <splash src="res/icons/android/wipro.png" density="land-hdpi"/>
-    <splash src="res/icons/android/wipro.png" density="land-ldpi"/>
-    <splash src="res/icons/android/wipro.png" density="land-mdpi"/>
-    <splash src="res/icons/android/wipro.png" density="land-xhdpi"/>
-
-    <splash src="res/icons/android/wipro.png" density="port-hdpi"/>
-    <splash src="res/icons/android/wipro.png" density="port-ldpi"/>
-    <splash src="res/icons/android/wipro.png" density="port-mdpi"/>
-    <splash src="res/icons/android/wipro.png" density="port-xhdpi"/>
-   
+    <splash src="res/screens/android/screen-xhdpi-portrait.png" density="port-xhdpi"/> 
   </platform>
 
   <platform name="ios">
